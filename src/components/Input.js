@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "./Input.css";
+import { Box, TextField, Button } from "@mui/material";
 
 function Input({ onSendMessage }) {
   const [message, setMessage] = useState("");
@@ -8,15 +10,36 @@ function Input({ onSendMessage }) {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     //console.log("Submited message" + message);
     onSendMessage(message);
+    setMessage("");
+  };
+
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      onSubmit();
+    }
   };
 
   return (
-    <div>
-      <h2>Input</h2>
-      <form onSubmit={onSubmit}>
+    <Box className="input-container">
+      <TextField
+        className="input-field"
+        required
+        id="input-message"
+        /* label="Nickname" */
+        placeholder="Enter your message"
+        variant="standard"
+        type="text"
+        value={message}
+        onChange={handleInputChange}
+        onKeyUp={handleEnter}
+      />
+      <Button type="submit" variant="outlined" onClick={onSubmit}>
+        SEND
+      </Button>
+      {/*  <form onSubmit={onSubmit}>
         <input
           onChange={handleInputChange}
           value={message}
@@ -25,8 +48,8 @@ function Input({ onSendMessage }) {
           autoFocus={true}
         />
         <button>Send</button>
-      </form>
-    </div>
+      </form> */}
+    </Box>
   );
 }
 

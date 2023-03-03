@@ -5,6 +5,8 @@ import Sidebar from "./components/Sidebar";
 import Messages from "./components/Messages";
 import Input from "./components/Input";
 import { CssBaseline } from "@mui/material";
+import { Box } from "@mui/material";
+import "./App.css";
 
 function App() {
   /* const chatMember = {
@@ -105,18 +107,24 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="app">
       <CssBaseline />
-      <Header />
       {chatMember.username === "" ? (
         <EnterScreen userEnter={handleEnterChat} />
       ) : (
         <>
-          <Sidebar activeMembers={activeMembers} currentMember={chatMember} />
-          <div>
-            <Messages messages={messages} currentMember={chatMember} />
-            <Input onSendMessage={onSendMessage} />
-          </div>
+          <Header />
+          <Box className="chat-main">
+            <Sidebar activeMembers={activeMembers} currentMember={chatMember} />
+            <Box className="chat">
+              <Messages
+                className="messages"
+                messages={messages}
+                currentMember={chatMember}
+              />
+              <Input className="chat-input" onSendMessage={onSendMessage} />
+            </Box>
+          </Box>
         </>
       )}
     </div>
