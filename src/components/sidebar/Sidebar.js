@@ -2,19 +2,9 @@ import React from "react";
 import { createAvatar } from "@dicebear/core";
 import { micah } from "@dicebear/collection";
 import "./Sidebar.css";
-import {
-  Box,
-  Divider,
-  List,
-  ListItem,
-  Avatar,
-  Typography,
-  Chip,
-} from "@mui/material";
+import { Box, List, ListItem, Avatar, Typography, Chip } from "@mui/material";
 
 function Sidebar({ activeMembers, currentMember }) {
-  //console.log("Sidebar: " + JSON.stringify(currentMember));
-
   const getAvatar = (username, size) => {
     const avatar = createAvatar(micah, {
       seed: username,
@@ -22,7 +12,6 @@ function Sidebar({ activeMembers, currentMember }) {
       size: 48,
     });
     const dataUri = avatar.toDataUriSync();
-    //console.log("Data uri: " + dataUri);
     return dataUri;
   };
 
@@ -40,7 +29,7 @@ function Sidebar({ activeMembers, currentMember }) {
         <List>
           {activeMembers.map((user) => (
             <ListItem key={user.id}>
-              <Avatar src={getAvatar(user.clientData.username)} alt="avatar" />{" "}
+              <Avatar src={getAvatar(user.clientData.username)} alt="avatar" />
               {user.clientData.username}
             </ListItem>
           ))}

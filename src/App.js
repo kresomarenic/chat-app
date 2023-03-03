@@ -1,19 +1,14 @@
-import EnterScreen from "./components/EnterScreen";
+import EnterScreen from "./components/enter_screen/EnterScreen";
 import { useState } from "react";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
-import Messages from "./components/Messages";
-import Input from "./components/Input";
+import Header from "./components/header/Header";
+import Sidebar from "./components/sidebar/Sidebar";
+import Messages from "./components/messages/Messages";
+import Input from "./components/input/Input";
 import { CssBaseline } from "@mui/material";
 import { Box } from "@mui/material";
 import "./App.css";
 
 function App() {
-  /* const chatMember = {
-    chatId: "",
-    username: "",
-  }; */
-
   const [chatMember, setChatMember] = useState({
     chatId: "",
     username: "",
@@ -32,7 +27,7 @@ function App() {
     console.log(chatMember);
     const room = subscribeToRoom(chat, chatMember);
     console.log(room);
-    const membersEvents = getRoomMembers(room);
+    getRoomMembers(room);
   };
 
   const connectToChat = (chatMember) => {
@@ -55,19 +50,9 @@ function App() {
   };
 
   const subscribeToRoom = (chat) => {
-    //console.log("Room chat data: " + JSON.stringify(chat.data));
     const room = chat.subscribe("observable-room");
-    /* room.on("data", (data, member) => {
-      //console.log("On data: " + data);
-      //console.log("On data: " + JSON.stringify(member));
-      //const messages = messages;
-      messages.push({ member, text: data });
-      setMessages(messages);
-    }); */
 
     room.on("message", function (message) {
-      const member = message.member;
-      //console.log("Message sent by: " + member + " - " + message.data);
       const allMessages = (messages) => [...messages, message];
       setMessages(allMessages);
     });
@@ -78,20 +63,16 @@ function App() {
 
   const getRoomMembers = (room) => {
     room.on("members", function (members) {
-      //console.log("Members from chat: " + JSON.stringify(members));
       const allMembers = members;
       setActiveMembers(allMembers);
-      //console.log("Members from chat - all: " + allMembers);
       setChatRoom(room);
     });
+
     room.on("member_join", function (member) {
-      //console.log("Member join: " + JSON.stringify(member));
       const allMembers = (activeMembers) => [...activeMembers, member];
-      //console.log("Join all: " + allMembers);
       setActiveMembers(allMembers);
     });
     room.on("member_leave", function (member) {
-      //console.log("Member leave: " + JSON.stringify(member));
       setActiveMembers((activeMembers) =>
         activeMembers.filter((m) => m.id !== member.id)
       );
@@ -99,7 +80,6 @@ function App() {
   };
 
   const onSendMessage = (message) => {
-    //console.log("Received message: " + message);
     chat.publish({
       room: "observable-room",
       message,

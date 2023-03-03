@@ -1,6 +1,5 @@
 import React from "react";
 import { Box } from "@mui/system";
-import { AppBar } from "@mui/material";
 import { Typography } from "@mui/material";
 import "./Header.css";
 
