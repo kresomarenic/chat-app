@@ -1,0 +1,16 @@
+.sidebar {
+  display: flex;
+  width: 15%;
+  flex-direction: column;
+  border-right: solid;
+  border-color: blue;
+  padding: 0.5%;
+}
+
+.current-member {
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
